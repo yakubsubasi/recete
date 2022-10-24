@@ -16,6 +16,8 @@ class ListFieldFormBloc extends FormBloc<String, String> {
           name: 'prescription',
           prescriptionName: TextFieldBloc(name: 'name'),
           shortDescription: TextFieldBloc(name: 'shortDescription'),
+          isIlyasYolbas: BooleanFieldBloc(name: 'isIlyasYolbas'),
+          explanation: TextFieldBloc(name: 'explanation'),
           medicines: ListFieldBloc(name: 'medicines', fieldBlocs: [
             MedicineFieldBloc(
                 name: 'medicine',
@@ -49,6 +51,8 @@ class ListFieldFormBloc extends FormBloc<String, String> {
       prescriptionName: TextFieldBloc(name: 'name'),
       shortDescription: TextFieldBloc(name: 'shortDescription'),
       medicines: ListFieldBloc(name: 'medicines'),
+      isIlyasYolbas: BooleanFieldBloc(name: 'isIlyasYolbas'),
+      explanation: TextFieldBloc(name: 'explanation'),
     ));
   }
 
@@ -86,6 +90,8 @@ class ListFieldFormBloc extends FormBloc<String, String> {
         return Prescription(
             name: prescriptionField.prescriptionName.value,
             shortDescription: prescriptionField.shortDescription.value,
+            isIlyasYolbas: prescriptionField.isIlyasYolbas.value,
+            explanation: prescriptionField.explanation.value,
             medicines: prescriptionField.medicines.value
                 .map<Medicine>((medicineField) {
               return Medicine(
@@ -98,6 +104,8 @@ class ListFieldFormBloc extends FormBloc<String, String> {
             }).toList());
       }).toList(),
     );
+
+    diseaseRef.add(disease);
 
     print("denem 2");
 
@@ -140,18 +148,26 @@ class ListFieldFormBloc extends FormBloc<String, String> {
   }
 }*/
 class PrescriptionFieldBloc extends GroupFieldBloc {
+  final BooleanFieldBloc isIlyasYolbas;
   final TextFieldBloc prescriptionName;
   final TextFieldBloc shortDescription;
   final ListFieldBloc<MedicineFieldBloc, dynamic> medicines;
+  final TextFieldBloc explanation;
 
   PrescriptionFieldBloc({
+    required this.isIlyasYolbas,
     required this.prescriptionName,
     required this.shortDescription,
     required this.medicines,
+    required this.explanation,
     String? name,
-  }) : super(
-            name: name,
-            fieldBlocs: [prescriptionName, shortDescription, medicines]);
+  }) : super(name: name, fieldBlocs: [
+          prescriptionName,
+          shortDescription,
+          medicines,
+          isIlyasYolbas,
+          explanation
+        ]);
 }
 
 class MedicineFieldBloc extends GroupFieldBloc {

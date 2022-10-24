@@ -165,6 +165,14 @@ class PrescriptionCard extends StatelessWidget {
                 labelText: 'Reçete Kısa açıklaması',
               ),
             ),
+            CheckboxFieldBlocBuilder(
+              booleanFieldBloc: prescriptionField.isIlyasYolbas,
+              body: Container(
+                child: Text(
+                  "İlyas Yolbaş Kitabından",
+                ),
+              ),
+            ),
             BlocBuilder<ListFieldBloc<MedicineFieldBloc, dynamic>,
                 ListFieldBlocState<MedicineFieldBloc, dynamic>>(
               bloc: prescriptionField.medicines,
@@ -261,6 +269,11 @@ class PrescriptionCard extends StatelessWidget {
               onPressed: onAddMedicine,
               child: const Text('İlaç Ekle'),
             ),
+            TextFieldBlocBuilder(
+              textFieldBloc: prescriptionField.explanation,
+              decoration: InputDecoration(
+                  labelText: "Tedavi ile ilgili ek açıklamalar"),
+            )
           ],
         ),
       ),

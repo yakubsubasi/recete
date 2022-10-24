@@ -10,12 +10,14 @@ class Prescription {
       this.name,
       this.shortDescription,
       this.explanation,
-      this.medicines});
+      this.medicines,
+      this.isIlyasYolbas = false});
 
   String? id;
   String? name;
   String? shortDescription;
-  String? explanation;
+  String? explanation; // Tedavi ile ilgili ek açıklama
+  bool isIlyasYolbas;
   List<Medicine>? medicines;
 
   factory Prescription.fromJson(Map<String, dynamic> json) =>

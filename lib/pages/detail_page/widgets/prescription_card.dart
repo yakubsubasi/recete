@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:recete/model/disease_model.dart';
-import 'package:recete/model/medicine_model.dart';
 import 'package:recete/model/prescription_model.dart';
 
 class PrescriptionCard extends StatelessWidget {
