@@ -12,17 +12,10 @@ class TestPage extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
-            addDisease(sampleDisease);
-          },
+          onPressed: () {},
           child: Text('test'),
         ),
       ),
     );
-  }
-
-  // add disease function
-  Future<void> addDisease(Disease disease) async {
-    await diseaseRef.add(disease);
   }
 }

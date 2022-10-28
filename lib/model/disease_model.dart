@@ -4,8 +4,6 @@ import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:recete/model/prescription_model.dart';
 
-import 'medicine_model.dart';
-
 part 'disease_model.g.dart';
 
 // to generate command: flutter packages pub run build_runner build --delete-conflicting-outputs
@@ -49,11 +47,15 @@ enum Speciality {
   ophtalmology,
   dermatology,
   pulmonaryDisease,
+  familyMedicine
 }
 
 extension SpecialityExtension on Speciality {
   String get imagepath {
     switch (this) {
+      case Speciality.familyMedicine:
+        return 'assets/icons/family_medicine.png';
+
       case Speciality.internalMedicine:
         return 'assets/icons/internal_medicine.png';
 
@@ -94,6 +96,8 @@ extension SpecialityExtension on Speciality {
 
   String get valeu {
     switch (this) {
+      case Speciality.familyMedicine:
+        return 'Aile Hekimliği';
       case Speciality.internalMedicine:
         return 'İç Hastalıkları';
       case Speciality.pediatric:
@@ -132,34 +136,3 @@ extension SpecialityExtension on Speciality {
 
 @Collection<Disease>('diseases2')
 final diseaseRef = DiseaseCollectionReference();
-
-final sampleDisease = Disease(
-  id: '1',
-  name: 'Kanser',
-  specialities: [
-    Speciality.oncology,
-    Speciality.cardiology,
-  ],
-  prescriptions: [
-    Prescription(
-      id: '1',
-      name: 'Kanser ilacı',
-      shortDescription: 'Kanser ilacı',
-      explanation: 'Kanser ilacı',
-      medicines: [
-        Medicine(
-          id: '1',
-          name: 'Kanser ilacı',
-        ),
-        Medicine(
-            id: '2',
-            name: 'Kanser ilacı',
-            activeSubstance: 'Kanser ilacı',
-            howMany: 3,
-            howOften: 2,
-            units: 'tablet',
-            howToUse: 'su ile beraber içilecek'),
-      ],
-    ),
-  ],
-);

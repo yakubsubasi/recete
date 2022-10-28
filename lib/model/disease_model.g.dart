@@ -646,4 +646,5 @@ const _$SpecialityEnumMap = {
   Speciality.ophtalmology: 'ophtalmology',
   Speciality.dermatology: 'dermatology',
   Speciality.pulmonaryDisease: 'pulmonaryDisease',
+  Speciality.familyMedicine: 'familyMedicine',
 };

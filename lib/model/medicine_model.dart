@@ -14,20 +14,18 @@ class Medicine {
     this.units,
     this.howToUse,
     this.periode,
-  }) {
-    _$assertMedicine(this);
-  }
+    this.numberOfBoxes,
+  });
 
   String? id;
   String? name;
   String? activeSubstance;
-  @Min(1)
-  int? howOften;
-  @Min(1)
-  int? howMany;
+  String? howOften;
+  String? howMany;
   String? units;
   String? howToUse;
   String? periode;
+  int? numberOfBoxes;
 
   factory Medicine.fromJson(Map<String, dynamic> json) =>
       _$MedicineFromJson(json);

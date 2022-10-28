@@ -20,15 +20,17 @@ class ListFieldFormBloc extends FormBloc<String, String> {
           explanation: TextFieldBloc(name: 'explanation'),
           medicines: ListFieldBloc(name: 'medicines', fieldBlocs: [
             MedicineFieldBloc(
-                name: 'medicine',
-                medicineName: TextFieldBloc(
-                    name: 'medicineName',
-                    validators: [FieldBlocValidators.required]),
-                activeSubstance: TextFieldBloc(name: 'activeSubstance'),
-                howOften: TextFieldBloc(name: 'howOften'),
-                howMany: TextFieldBloc(name: 'howMany'),
-                units: TextFieldBloc(name: 'units'),
-                howToUse: TextFieldBloc(name: 'howToUse'))
+              name: 'medicine',
+              medicineName: TextFieldBloc(
+                  name: 'medicineName',
+                  validators: [FieldBlocValidators.required]),
+              activeSubstance: TextFieldBloc(name: 'activeSubstance'),
+              howOften: TextFieldBloc(name: 'howOften'),
+              howMany: TextFieldBloc(name: 'howMany'),
+              units: TextFieldBloc(name: 'units'),
+              howToUse: TextFieldBloc(name: 'howToUse'),
+              numberOfBoxes: TextFieldBloc(name: 'numberOfBoxes'),
+            )
           ]),
         )
       ]);
@@ -71,7 +73,8 @@ class ListFieldFormBloc extends FormBloc<String, String> {
             howOften: TextFieldBloc(name: 'howOften'),
             howMany: TextFieldBloc(name: 'howMany'),
             units: TextFieldBloc(name: 'units'),
-            howToUse: TextFieldBloc(name: 'howToUse')));
+            howToUse: TextFieldBloc(name: 'howToUse'),
+            numberOfBoxes: TextFieldBloc(name: 'numberOfBoxes')));
   }
 
   void removeMedicineFromPrescription(
@@ -97,10 +100,11 @@ class ListFieldFormBloc extends FormBloc<String, String> {
               return Medicine(
                   name: medicineField.medicineName.value,
                   activeSubstance: medicineField.activeSubstance.value,
-                  howOften: int.parse(medicineField.howOften.value),
-                  howMany: int.parse(medicineField.howMany.value),
+                  howOften: medicineField.howOften.value,
+                  howMany: medicineField.howMany.value,
                   units: medicineField.units.value,
-                  howToUse: medicineField.howToUse.value);
+                  howToUse: medicineField.howToUse.value,
+                  numberOfBoxes: int.parse(medicineField.numberOfBoxes.value));
             }).toList());
       }).toList(),
     );
@@ -177,6 +181,7 @@ class MedicineFieldBloc extends GroupFieldBloc {
   final TextFieldBloc howMany;
   final TextFieldBloc units;
   final TextFieldBloc howToUse;
+  final TextFieldBloc numberOfBoxes;
 
   MedicineFieldBloc({
     required this.medicineName,
@@ -185,6 +190,7 @@ class MedicineFieldBloc extends GroupFieldBloc {
     required this.howMany,
     required this.units,
     required this.howToUse,
+    required this.numberOfBoxes,
     String? name,
   }) : super(
           name: name,
@@ -195,6 +201,7 @@ class MedicineFieldBloc extends GroupFieldBloc {
             howMany,
             units,
             howToUse,
+            numberOfBoxes
           ],
         );
 }

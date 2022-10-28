@@ -215,6 +215,13 @@ class PrescriptionCard extends StatelessWidget {
                                 textFieldBloc:
                                     medicineFieldBloc.activeSubstance,
                               ),
+                              TextFieldBlocBuilder(
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  labelText: 'kutu adedi',
+                                ),
+                                textFieldBloc: medicineFieldBloc.numberOfBoxes,
+                              ),
                               Row(
                                 children: [
                                   Expanded(
