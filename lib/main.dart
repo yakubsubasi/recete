@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:recete/color_schemes.g.dart';
 import 'package:recete/pages/home_page/home_page.dart';
 import 'package:recete/pages/list_page/landing_page_controller.dart';
+import 'package:recete/pages/onboarding/onboarding_page.dart';
 import 'package:recete/prefrences/cubit/prefrences_cubit.dart';
 import 'package:recete/prefrences/model/prefences.dart';
 import 'package:recete/prefrences/service/preferences_service.dart';
@@ -29,12 +30,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<PrefrencesCubit>(
-      future: buildBloc(),
+    return FutureBuilder<_AppData>(
+      future: _loadAppData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          final data = snapshot.data!;
           return BlocProvider<PrefrencesCubit>(
-            create: (context) => snapshot.data!,
+            create: (context) => data.cubit,
             child: BlocBuilder<PrefrencesCubit, Prefrences>(
               builder: (context, prefrences) {
                 return MaterialApp(
@@ -57,7 +59,9 @@ class MyApp extends StatelessWidget {
                   ),
                   darkTheme: ThemeData(
                       useMaterial3: true, colorScheme: darkColorScheme),
-                  home: const HomePage(),
+                  home: data.onboardingCompleted
+                      ? const HomePage()
+                      : const OnboardingPage(),
                   themeMode: prefrences.themeMode,
                 );
               },
@@ -70,9 +74,18 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  Future<PrefrencesCubit> buildBloc() async {
+  Future<_AppData> _loadAppData() async {
     final pref = await SharedPreferences.getInstance();
     final service = MyPrefrencesService(pref);
-    return PrefrencesCubit(service, service.getPrefences());
+    final cubit = PrefrencesCubit(service, service.getPrefences());
+    final onboardingDone = await isOnboardingCompleted();
+    return _AppData(cubit: cubit, onboardingCompleted: onboardingDone);
   }
+}
+
+class _AppData {
+  final PrefrencesCubit cubit;
+  final bool onboardingCompleted;
+
+  _AppData({required this.cubit, required this.onboardingCompleted});
 }
